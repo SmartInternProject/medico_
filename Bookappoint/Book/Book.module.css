@@ -1,0 +1,73 @@
+.container {
+  width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 5px solid hsl(0, 0%, 0%);
+  border-radius: 10px;
+  font-size: 1.2rem;
+  margin-bottom: 25px;
+  margin-top: 25px;
+  color: black;
+}
+
+.heading {
+  display: flex;
+  justify-content: center;
+  text-decoration: underline;
+}
+
+.bookform {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.formlabel {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.forminput,
+.formselect {
+  padding: 10px;
+  border: 1.5px solid #000000;
+  border-radius: 3px;
+  width: 100%;
+  font-size: 1.2rem;
+  background-color: #fff;
+  color: #000000;
+}
+
+.formbutton[type="submit"] {
+  padding: 10px 20px;
+  background-color: var(--icons-color);
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.formselect {
+  appearance: none;
+
+  background-size: 12px;
+}
+
+.formselect::-ms-expand {
+  display: none;
+}
+
+.formselect:hover {
+  border-color: #cdc6c6;
+}
+
+.formbutton[type="submit"] {
+  font-size: 2rem;
+}
+
+.formbutton[type="submit"]:hover {
+  background-color: var(--icons-color);
+}
