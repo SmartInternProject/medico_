@@ -8,7 +8,7 @@ import Style from "./Fields.module.css";
 const Fields = () => {
   const fields = [
     {
-      name: "Heart",
+      name: "Cardiology",
       link: "Heart",
     },
     {
@@ -16,16 +16,16 @@ const Fields = () => {
       link: "Orthopedics",
     },
     {
-      name: "Spine",
+      name: "Neurology",
       link: "Spine",
     },
          
     {
-      name: "ENT (Otolaryngology)",
+      name: "Otolaryngology (ENT)",
       link: "ENT",
     },
     {
-      name: "Dermatology",
+      name: "Endocrinology",
       link: "Dermatology",
     },
 

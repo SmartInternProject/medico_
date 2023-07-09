@@ -1,27 +1,101 @@
-import Style from "./Book.module.css";
-import React, { useState } from 'react';
-import './Book.module.css'; // Import the CSS file for styling
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
-function AppointmentForm() {
+import './Book.module.css'; 
+import Style from "./Book.module.css";
+
+
+
+const AppointmentForm = () => {
+  const [specialityDropdownValue, setspecialityDropdownValue] = useState('');
+  const [doctorDropdownValue, setdoctorDropdownValue] = useState('');
+  const [specialityDropdownOptions, setspecialityDropdownOptions] = useState([]);
+  const [doctorDropdownOptions, setdoctorDropdownOptions] = useState([]);
+
+  const [appointmentSchedule, setAppointmentSchedule] = useState([])
+
+  const [dateDropdownValue, setDateDropdownValue] = useState('');
+  const [timeDropdownValue, setTimeDropdownValue] = useState('');
+  const [dateDropdownOptions, setDateDropdownOptions] = useState([]);
+  const [timeDropdownOptions, setTimeDropdownOptions] = useState([]);
+
+
+  
+  // Update doctors on speciality change in drop down 
+  const handleSpecialityDropdownChange = (event) => {
+    const selectedValue = event.target.value;
+    setspecialityDropdownValue(selectedValue);
+    
+    // Fetch data for the doctors dropdown based on the selected value of the speciality dropdown
+    axios.get(`http://localhost:8080/api/doctorsWithSpecialization/${selectedValue}`)
+      .then(response => {
+        setdoctorDropdownOptions(response.data);
+        console.log(response.data);
+        setdoctorDropdownValue('');
+      })
+      .catch(error => {
+        console.error('Error fetching dropdown options:', error);
+      });
+  };
+  
+  // Update date slots on doctor change in drop down 
+  const handleDoctorDropdownChange = (event) => {
+    const selectedValue = event.target.value;
+    setdoctorDropdownValue(selectedValue);
+    // Find the selected doctor object from the doctorDropdownOptions array
+    const selectedDoctor = doctorDropdownOptions.find(doctor => doctor.id == selectedValue);
+
+    // Extract the appointment schedules from the selected doctor
+    const appointmentSchedules = selectedDoctor.appointmentScheduls;
+
+    // Create an array of objects with id, date and time properties
+    const dateOptions = appointmentSchedules.map(schedule => ({ id: schedule.id, date: schedule.appDate, time: schedule.startTime }));
+
+    // Update the date dropdown options
+    setDateDropdownOptions(dateOptions);
+
+    // Reset the selected date
+    setDateDropdownValue('');
+
+
+  };
+  
+  // //Update time slots on date change in drop down 
+  // const handleDateDropdownChange = (event) =>{
+  //   const selectedValue = event.target.value;
+  //   setDateDropdownValue(selectedValue);
+
+  //   // Find the selected date object from the dateDropdownOptions array
+  //   const selectedDate = dateDropdownOptions.find(date => date.id == selectedValue);
+
+  //   // Create an array of objects with id and time properties
+  //   const timeOptions = selectedDate.map(schedule => ({id:schedule.id, time:schedule.time}));
+
+  //   // Update the time dropdown options
+  //   setTimeDropdownOptions(timeOptions);
+
+  //   // Reset the selected date and time
+  //   setTimeDropdownValue('');
+  // }
+
+
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
-  const [speciality, setSpeciality] = useState('');
-  const [doctor, setDoctor] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
     // Perform form submission logic here
+
     console.log('Form submitted:', {
+      data,
       name,
       email,
       phone,
       date,
-      time,
-      speciality,
-      doctor,
+      time
     });
     // Reset form fields
     setName('');
@@ -29,11 +103,22 @@ function AppointmentForm() {
     setPhone('');
     setDate('');
     setTime('');
-    setSpeciality('');
-    setDoctor('');
-  };
 
+  };
+  // Fetch initial data for the first dropdown on component mount
+  useEffect(() => {
+    axios.get('http://localhost:8080/api/specialization')
+      .then(response => {
+        setspecialityDropdownOptions(response.data);
+        
+      })
+      .catch(error => {
+        console.error('Error fetching dropdown options:', error);
+      });
+  }, []);
+  
   return (
+
     <div className={Style.container}>
       <h2 className={Style.heading}>Book an Appointment</h2>
       <form onSubmit={handleSubmit} className={Style.bookform}>
@@ -68,72 +153,59 @@ function AppointmentForm() {
           />
         </div><br></br>
         <div className="form-group">
-          <label htmlFor="date" className={Style.formlabel}>Date:</label>
-          <input className={Style.forminput}
-            type="date"
-            id="date"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-            required
-          />
+          <label htmlFor="Speciality" className={Style.formlabel}>Speciality:</label>
+            <select id="Speciality" value={specialityDropdownValue} onChange={handleSpecialityDropdownChange}  className={Style.formselect}>
+              <option value="">Select an option</option>
+              {specialityDropdownOptions.map(option => (
+                <option key={option.id} value={option.id}>{option.specialization}</option>
+              ))}
+            </select>
         </div><br></br>
         <div className="form-group">
+          <label htmlFor="Doctors" className={Style.formlabel}>Doctor:</label>
+            <select id="Doctors" value={doctorDropdownValue} onChange={handleDoctorDropdownChange} disabled={!specialityDropdownValue}  className={Style.formselect}>
+              <option value="">Select an option</option>
+              {doctorDropdownOptions.map(option => (
+                <option key={option.id} value={option.id}>Dr. {option.firstName} {option.lastName}</option>
+              ))}
+            </select>
+        </div><br></br>
+        <div className="form-group">
+          <label htmlFor="date" className={Style.formlabel}>Slote:</label>
+            <select
+              id="date"
+              value={dateDropdownValue}
+              onChange={(e) => {setDateDropdownValue(e.target.value)}}
+              required
+              className={Style.formselect}
+            >
+              <option value="">Select a slote</option>
+              {dateDropdownOptions.map(option => (
+                <option key={option.id} value={option.id}>date: {option.date} | time: {option.time}</option>
+              ))}
+            </select>
+        </div><br></br>
+        {/* <div className="form-group">
           <label htmlFor="time" className={Style.formlabel}>Time:</label>
-          <input className={Style.forminput}
-            type="time"
-            id="time"
-            value={time}
-            onChange={(e) => setTime(e.target.value)}
-            required
-          />
-        </div><br></br>
-        <div className="form-group">
-          <label htmlFor="speciality" className={Style.formlabel}>Speciality:</label>
-          <select className={Style.formselect}
-            id="speciality"
-            value={speciality}
-            onChange={(e) => setSpeciality(e.target.value)}
-            required
-          >
-            <option value="">Select Speciality</option>
-            <option value="cardiology">Cardiology</option>
-            <option value="dermatology">Dermatology</option>
-            <option value="neurology">Neurology</option>
-          </select>
-        </div><br></br>
-        <div className="form-group">
-          <label htmlFor="doctor" className={Style.formlabel}>Doctor:</label>
-          <select className={Style.formselect}
-            id="doctor"
-            value={doctor}
-            onChange={(e) => setDoctor(e.target.value)}
-            required
-          >
-            <option value="">Select Doctor</option>
-            {speciality === 'cardiology' && (
-              <>
-                <option value="dr-smith">Dr. Smith</option>
-                <option value="dr-jones">Dr. Jones</option>
-              </>
-            )}
-            {speciality === 'dermatology' && (
-              <>
-                <option value="dr-wilson">Dr. Wilson</option>
-                <option value="dr-miller">Dr. Miller</option>
-              </>
-            )}
-            {speciality === 'neurology' && (
-              <>
-                <option value="dr-anderson">Dr. Anderson</option>
-                <option value="dr-walker">Dr. Walker</option>
-              </>
-            )}
-          </select>
-        </div><br></br>
+            <select
+              id="time"
+              value={timeDropdownValue}
+              onChange={(e) => setTimeDropdownValue(e.target.value)}
+              required
+              className={Style.formselect}
+            >
+              <option value="">Select a time</option>
+              {timeDropdownOptions.map(option => (
+                <option key={option.id} value={option.id}>{option.time}</option>
+              ))}
+            </select>
+        </div><br></br> */}
+        
         <button type="submit" className={Style.formbutton}>Book Appointment</button>
       </form>
     </div>
+
   );
-}
+};
 
 export default AppointmentForm;

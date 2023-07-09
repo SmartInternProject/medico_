@@ -1,23 +1,49 @@
-import React, { useState } from 'react';
-import Style from "./Heart.module.css";
-import './Heart.module.css';
-
-import images from "../../img";
-
+import React, { useState,useEffect } from "react";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { BsImages } from "react-icons/bs";
 import Image from "next/image";
 
+//INTERNAL IMPORT
+import Style from "./Heart.module.css";
+import images from "../../img";
+
+import axios from "axios";
 
 const Doctor = () => {
-  const featureArray = [1];
+
+  const [data,setData] = useState(
 
 
+  );
 
+  useEffect(()=>{
+    axios.get("http://localhost:8080/api/doctorsWithSpecialization/3").then(response => {setData(response.data);console.log(data)}).catch(error => console.log(error))
+  },[]);
+
+  const renderSpecialization= (nestedObjects) => {
+    return nestedObjects.map((nestedObject) => (
+      <div>
+      <div key={nestedObject.id}>{nestedObject.specialization} || 15 years</div><br></br>
+      </div>
+    ));
+  };
+
+  const renderAcademicDetails = (nestedObjects) => {
+    return nestedObjects.map((nestedObject) => (
+      <div>
+      <div key={nestedObject.id}>{nestedObject.degree}|{nestedObject.specialization}</div><br></br>
+      </div>
+    ));
+  };
+
+  if (data === null || !Array.isArray(data)) {
+    return <div>Loading data...</div>;
+  }
   return (
     <div className={Style.Doctor}>
-      {featureArray.map((el, i) => (
-        <div className={Style.Doctor_box} key={i + 1}>
+      {data.map((doctor) => (
+        
+        <div className={Style.Doctor_box} key={doctor.id}>
           <div className={Style.Doctor_box_img}>
             <Image style={{ width: "100%", height: "100%" }}
               src={images.d2}
@@ -56,12 +82,18 @@ const Doctor = () => {
           <div className={Style.Doctor_box_update_details}>
             <div className={Style.Doctor_box_update_details_info}>
               <div className={Style.Doctor_box_update_details_info_box}>
-                <h5>Dr. Anand Agrawal</h5>
-                <p>Cardiology| 15 years exp</p>
+                  <div>
+                    <h5>Dr. {doctor.firstName+" "+doctor.lastName}</h5>
+                    <p>
+                      {renderSpecialization(doctor.specialization)}
+                    </p>
+                  </div>
                 
 
                 <div className={Style.Doctor_box_update_details_info_box_box}>
-                <small>MBBS MD MEDICINE DM CARDIOLOGY</small>
+                <small>
+                  {renderAcademicDetails(doctor.academicDetails)}
+                </small>
                   <div
                     className={Style.Doctor_box_update_details_info_box_stock}
                   >
@@ -81,4 +113,3 @@ const Doctor = () => {
 };
 
 export default Doctor;
-
