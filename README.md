@@ -1,6 +1,10 @@
 
 Demo Video - 
 
+
+https://github.com/SmartInternProject/medico_/assets/115939043/f72c4c47-2052-4e43-9572-6135ef944ce1
+
+
 https://docs.google.com/document/d/1J1fufwxqob2YrQP25_Gdqu4DW54fgg7ZeCZLFkWqcHY/edit?usp=sharing
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
