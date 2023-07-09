@@ -1,0 +1,12 @@
+com/dev2prod/springdatajpamappings/repository/AcadimicDetailsRepository.class
+com/dev2prod/springdatajpamappings/entity/Employee.class
+com/dev2prod/springdatajpamappings/controller/EmployeeController.class
+com/dev2prod/springdatajpamappings/repository/DoctorRepository.class
+com/dev2prod/springdatajpamappings/repository/EmployeeRepository.class
+com/dev2prod/springdatajpamappings/controller/DoctorController.class
+com/dev2prod/springdatajpamappings/controller/AddressController.class
+com/dev2prod/springdatajpamappings/entity/Address.class
+com/dev2prod/springdatajpamappings/entity/AcademicDetails.class
+com/dev2prod/springdatajpamappings/repository/AddressRepository.class
+com/dev2prod/springdatajpamappings/entity/Doctor.class
+com/dev2prod/springdatajpamappings/SpringDataJpaMappingsApplication.class

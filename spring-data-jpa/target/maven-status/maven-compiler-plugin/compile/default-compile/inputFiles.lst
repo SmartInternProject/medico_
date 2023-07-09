@@ -1,0 +1,12 @@
+/Users/pochampallyashishsreevatsav/Downloads/spring-data-jpa-mappings-master/src/main/java/com/dev2prod/springdatajpamappings/entity/Address.java
+/Users/pochampallyashishsreevatsav/Downloads/spring-data-jpa-mappings-master/src/main/java/com/dev2prod/springdatajpamappings/SpringDataJpaMappingsApplication.java
+/Users/pochampallyashishsreevatsav/Downloads/spring-data-jpa-mappings-master/src/main/java/com/dev2prod/springdatajpamappings/controller/AddressController.java
+/Users/pochampallyashishsreevatsav/Downloads/spring-data-jpa-mappings-master/src/main/java/com/dev2prod/springdatajpamappings/controller/DoctorController.java
+/Users/pochampallyashishsreevatsav/Downloads/spring-data-jpa-mappings-master/src/main/java/com/dev2prod/springdatajpamappings/repository/AcadimicDetailsRepository.java
+/Users/pochampallyashishsreevatsav/Downloads/spring-data-jpa-mappings-master/src/main/java/com/dev2prod/springdatajpamappings/entity/Employee.java
+/Users/pochampallyashishsreevatsav/Downloads/spring-data-jpa-mappings-master/src/main/java/com/dev2prod/springdatajpamappings/repository/DoctorRepository.java
+/Users/pochampallyashishsreevatsav/Downloads/spring-data-jpa-mappings-master/src/main/java/com/dev2prod/springdatajpamappings/repository/EmployeeRepository.java
+/Users/pochampallyashishsreevatsav/Downloads/spring-data-jpa-mappings-master/src/main/java/com/dev2prod/springdatajpamappings/entity/Doctor.java
+/Users/pochampallyashishsreevatsav/Downloads/spring-data-jpa-mappings-master/src/main/java/com/dev2prod/springdatajpamappings/controller/EmployeeController.java
+/Users/pochampallyashishsreevatsav/Downloads/spring-data-jpa-mappings-master/src/main/java/com/dev2prod/springdatajpamappings/repository/AddressRepository.java
+/Users/pochampallyashishsreevatsav/Downloads/spring-data-jpa-mappings-master/src/main/java/com/dev2prod/springdatajpamappings/entity/AcademicDetails.java
