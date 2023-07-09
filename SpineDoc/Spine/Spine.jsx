@@ -10,7 +10,7 @@ import Image from "next/image";
 
 
 const Doctor = () => {
-  const featureArray = [1,2];
+  const featureArray = [1,2,3];
 
 
 
