@@ -28,8 +28,8 @@ Above Folder Consists of Both Front-End and Back-End
 First, run the development server:
 
 ```bash
-npm run build 
-# or
+npm install
+
 npm run-script build
 
 npm run dev
