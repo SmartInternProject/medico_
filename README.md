@@ -30,11 +30,11 @@ First, run the development server:
 ```bash
 npm install
 
+npm install axios
+
 npm run-script build
 
-npm run dev
-# or
-yarn dev
+npm run start
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
